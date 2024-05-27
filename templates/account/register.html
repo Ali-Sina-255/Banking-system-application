@@ -2,10 +2,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method='POST'>
-        {% include 'includes/messages.html' %}
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value='Submit'>
-    </form>
+
+    <div class="containter mt-3 mx-auto">
+        <form method='POST' class='mx-auto' style='width: 500px;a'>
+            {% include 'includes/messages.html' %}
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+    
 {% endblock %}
