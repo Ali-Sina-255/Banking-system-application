@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method='POST'>
+        {% include 'includes/messages.html' %}
+        {% csrf_token %}
+        <label for="email">Email</label>
+        <input type="email" name="email">
+        <br>
+        <br>
+        <label for="name">Password</label>
+        <input type="password" name='password'>
+
+        <br>
+        <br>
+        <input type="submit" value='Submit'>
+    </form>
+{% endblock %}

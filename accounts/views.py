@@ -28,3 +28,21 @@ def UserRegister(request):
     context = {"form":form}
     return render(request, 'account/register.html', context)
 
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(email=email,password=password)
+        if user is not None:
+            login(request,user)
+            messages.success(request, 'You are logged now !')
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid login Credentials')
+            return redirect('login')
+    return render(request, 'account/login.html')
+
+
+def logout(request):
+    logout(request)
+    return redirect('login')
