@@ -1,0 +1,13 @@
+<component name="CopyrightManager">
+  <settings>
+    <LanguageOptions name="Python">
+      <option name="fileTypeOverride" value="3" />
+      <option name="addBlankBefore" value="true" />
+      <option name="block" value="false" />
+      <option name="separateBefore" value="true" />
+      <option name="separateAfter" value="true" />
+      <option name="lenBefore" value="40" />
+      <option name="lenAfter" value="40" />
+    </LanguageOptions>
+  </settings>
+</component>
