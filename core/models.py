@@ -35,17 +35,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    VENDOR = 1
-    CUSTOMER = 2
-    ROLE_CHOICES = (
-        (VENDOR, 'Restaurant'),
-        (CUSTOMER, 'Customer')
-    )
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
     phone_number = models.CharField(max_length=13, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now_add=True)
@@ -93,8 +86,8 @@ class UserProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def full_address(self):
-    #     return f"{self.address_line_1}, {self.address_line_2}"
+    def full_address(self):
+        return f"{self.address_line_1}, {self.address_line_2}"
 
     def __str__(self) -> str:
         return self.user.email

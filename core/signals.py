@@ -1,20 +1,23 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+from .models import User, UserProfile
 
-from accounts.models import Account
-from .models import UserAccount
 
-
-def create_user_account(sender, created, instance, **kwargs):
+@receiver(post_save,sender=User)
+def post_save_create_profile_receiver(sender, created, instance, **kwargs):
     if created:
-        UserAccount.objects.create(user=instance)
+        UserProfile.objects.create(user=instance)
     try:
-    
+        profile = UserProfile.objects.get(user=instance)
+        profile.save()
+        print('user profile is updated')
+
     except Exception as e:
-        raise e
+        UserProfile.objects.create(user=instance)
+        print('profile was not exists, but was created ')
+    print("User is updated")
 
-def save_user_account(sender, instance, **kwargs):
-    instance.useraccount.save()
 
-
-post_save.connect(create_user_account, sender=Account)
-post_save.connect(save_user_account, sender=Account)
+@receiver(pre_save,sender=User)
+def per_save_profile_reciver(sender, instance, **kwargs):
+    print(instance.username+ ' ' + 'this is being saved')
