@@ -7,7 +7,10 @@ from .models import UserAccount
 def create_user_account(sender, created, instance, **kwargs):
     if created:
         UserAccount.objects.create(user=instance)
-
+    try:
+    
+    except Exception as e:
+        raise e
 
 def save_user_account(sender, instance, **kwargs):
     instance.useraccount.save()
