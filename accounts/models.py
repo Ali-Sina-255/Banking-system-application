@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 import uuid
-from core.models import User
+
+from django_extensions.db.fields import ShortUUIDField
+from shortuuid.django_fields import ShortUUIDField
+
 
 
 class MyAccountManager(BaseUserManager):
@@ -87,28 +90,54 @@ GENDER = (
 
 IDENTITY_TYPE = (
     ('national_id',"National ID"),
-    ('internation_password', "Internation Password")
+    ('internation_passport', "Internation passport")
 )
 
 
 class UserAccount(models.Model):
-    id = models.UUIDFIELD(primary_key=True, unique=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='user')
     account_balance = models.DecimalField(max_digits=12,decimal_places=2, default=0.00)
-    account_number = models.ShortUUIDField(unique=True,lenght=10,max_lenght=20, prefix='255',alphabet='1234567890')
-    account_id = models.ShortUUIDField(unique=True,lenght=10,max_lenght=20, alphabet='1234567890')
-    read_code = models.ShortUUIDField(unique=True,lenght=10,max_lenght=20, alphabet='1234567890')
+    account_number = ShortUUIDField(unique=True, prefix='420', alphabet='1234567890')
+    account_id = ShortUUIDField(unique=True, alphabet='1234567890')
+    read_code = ShortUUIDField(unique=True, alphabet='asdcxvfgbhre1234567890')
     account_status = models.CharField(choices=ACCOUNT_STATUS , max_length=110, default='in-active')
     date = models.DateTimeField(auto_now_add=True)
     kyc_submitted = models.BooleanField(default=False)
     kyc_confirm = models.BooleanField(default=False)
-    recommended_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
+    recommended_by = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         ordering = ['-date']
 
     def __str__(self):
-        return  self.user
+        try:
+            return self.user.first_name
+        except:
+            return "Account model is created"
 
+
+class KYCModel(models.Model):
+    id = models.UUIDField(primary_key=True, null=False,default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(Account,on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=200)
+    images = models.ImageField(upload_to='kyc/')
+    marrital_status = models.CharField(choices=MARTIUALE_STATUS,max_length=100)
+    gender = models.CharField(choices=GENDER, max_length=100)
+    identity_id = models.CharField(choices=IDENTITY_TYPE,max_length=100)
+    date_of_birth = models.DateTimeField(auto_now=False)
+    signature = models.ImageField(upload_to='key/signature')
+
+    country = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state  = models.CharField(max_length=10)
+
+    mobile =  models.CharField(max_length=255)
+    facebook = models.URLField(max_length=255)
+    twitter = models.URLField(max_length=255)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return  f"{self.user.first_name} {self.user.last_name}"
 
 
