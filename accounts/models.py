@@ -125,6 +125,7 @@ class KYCModel(models.Model):
     marrital_status = models.CharField(choices=MARTIUALE_STATUS,max_length=100)
     gender = models.CharField(choices=GENDER, max_length=100)
     identity_id = models.CharField(choices=IDENTITY_TYPE,max_length=100)
+    identity_image = models.ImageField(upload_to='kyc/images',null=True, blank=True)
     date_of_birth = models.DateTimeField(auto_now=False)
     signature = models.ImageField(upload_to='key/signature')
 
