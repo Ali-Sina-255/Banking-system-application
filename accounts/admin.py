@@ -8,6 +8,7 @@ class KYCAdmin(admin.ModelAdmin):
     list_display = ['user', 'account_number', 'account_status', 'account_balance']
     list_filter = ['account_status']
 
+
 admin.site.register(UserAccount, KYCAdmin)
 
 
@@ -25,5 +26,6 @@ admin.site.register(Account, UserAccountAdmin)
 class KYCModelAdmin(admin.ModelAdmin):
     list_display = ['full_name','marrital_status','gender']
     list_filter = ['gender','identity_id']
+
 
 admin.site.register(KYCModel,KYCModelAdmin,)
