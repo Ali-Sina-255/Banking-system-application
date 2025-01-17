@@ -1,4 +1,7 @@
 asgiref==3.8.1
 Django==5.1.5
+django-extensions==3.2.3
+django-jazzmin==3.0.1
 pillow==11.1.0
+shortuuid==1.0.13
 sqlparse==0.5.3
