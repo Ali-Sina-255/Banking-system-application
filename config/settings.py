@@ -19,17 +19,29 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 # Application definition
 
-INSTALLED_APPS = [
-    'jazzmin',
+DJANGO_APPS = [
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'core.apps.CoreConfig',
-    'accounts.apps.AccountsConfig'
 ]
+THIRD_PARTY_APPS = [
+    'jazzmin',
+    'django_extensions'
+]
+
+LOCAL_APPS = [
+    'apps.core',
+    'apps.accounts'
+
+]
+
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

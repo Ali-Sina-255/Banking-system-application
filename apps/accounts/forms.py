@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
-from accounts.models import Account
+from apps.accounts.models import Account
 from django import forms
 
 
