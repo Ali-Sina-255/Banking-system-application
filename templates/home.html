@@ -1,3 +1,15 @@
-{% extends 'base.html' %} {% block content %}
-<h1>Home page</h1>
-{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Hello, world!</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            {{form.as_p}}
+        </div>
+        <button>Submit</button>
+
+    </form>
+</div>
+
+{% endblock content %}

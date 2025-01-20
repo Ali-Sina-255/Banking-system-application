@@ -16,6 +16,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Application definition
 
 DJANGO_APPS = [
+    'jazzmin',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -25,7 +26,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
 ]
 THIRD_PARTY_APPS = [
-    'jazzmin',
+
     'django_extensions'
 ]
 
@@ -54,7 +55,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(APPS_DIR / 'templates')],
+        "DIRS": [str(BASE_DIR / 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -110,7 +111,7 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -119,9 +120,6 @@ STATIC_URL = "static/"
 STATIC_ROOT = APPS_DIR / 'static'
 
 
-STATICFILES_DIRS = [
-    'config/static'
-]
 
 
 MEDIA_URL = 'media/'
