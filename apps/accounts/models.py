@@ -120,6 +120,7 @@ class UserAccount(models.Model):
 class KYCModel(models.Model):
     id = models.UUIDField(primary_key=True, null=False,default=uuid.uuid4, editable=False)
     user = models.ForeignKey(Account,on_delete=models.CASCADE)
+    account = models.OneToOneField(Account, on_delete=models.CASCADE,null=True,blank=True)
     full_name = models.CharField(max_length=200)
     images = models.ImageField(upload_to='kyc/')
     marrital_status = models.CharField(choices=MARTIUALE_STATUS,max_length=100)
